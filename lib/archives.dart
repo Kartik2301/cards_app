@@ -56,153 +56,121 @@ class archiveState extends State<archives>{
           scrollDirection: Axis.vertical,
           itemCount: list.length,
           itemBuilder: (context, index) {
-            return InkWell(
-              onTap: (){
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          AlertDialog(
-                            content: Column(
-                              children: <Widget>[
-                                Text(
-                                  'Delete this archived card',
-                                ),
-                                SizedBox(
-                                  height: 15.0,
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    IconButton(
-                                      icon: Icon(Icons.delete,
-                                        color: Colors.red,
-                                      ),
-                                      onPressed: (){
-                                        mMessagesDatabaseReference = mFirebaseDatabase
-                                            .reference()
-                                            .child("archived_cards/"+list[index].listname + "key"+list[index].cardname);
-                                        mMessagesDatabaseReference
-                                            .remove()
-                                            .then((_) {
-                                          print("Delete successful");
-                                          setState(() {
-                                            list.removeAt(index);
-                                          });
-                                        });
-                                        Navigator.pop(context);
-                                      },
-                                      tooltip: 'Delete the card',
-                                    ),
-
-                                  ],
-                                ),
-
-                              ],
-                            ),
-                          ),
-                        ],
-                      );
-                    });
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                        blurRadius: 8,
-                        offset: Offset(0, 0),
-                        color: Color.fromRGBO(127, 140, 141, 0.5),
-                        spreadRadius: 2)
-                  ],
-                  borderRadius: BorderRadius.circular(10.0),
-                  color: Colors.white,
-                ),
-                margin: EdgeInsets.only(
-                    top: 20.0, left: 10.0, right: 10.0, bottom: 12.0),
-                child: Column(
-                  children: <Widget>[
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        SizedBox(
-                          height: 15.0,
-                        ),
-                        Text(
-                          'Card Name: ' + list[index].cardname,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20.0
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15.0,
-                        ),
-                        Text(
-                          'list name: ' + list[index].listname,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20.0
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.only(left: 10.0),
-                          child: Image.network(list[index].photo_url,
-                            width: 200.0,
-                            height: 200.0,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 40.0,
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(right: 20.0),
-                          child: IconButton(
-                            icon: Icon(Icons.open_in_browser
-                              , color: Colors.lightBlue,
-                              size: 75.0,),
-                            onPressed: () {
-                              if (list[index].web_url == "abc") {
-                                Fluttertoast.showToast(
-                                    msg: "No link attachment provided",
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.CENTER,
-                                    timeInSecForIos: 1,
-                                    backgroundColor: Colors.red,
-                                    textColor: Colors.white,
-                                    fontSize: 16.0
-                                );
-                              } else {
-                                Navigator.push(context, MaterialPageRoute(
-                                  builder: (context) => webview(),
-                                  settings: RouteSettings(
-                                    arguments: list[index].web_url,
-                                  ),));
-                              }
-                            },
-                          ),
-                        )
-                      ],
-                    ),
-                    Text(
-                      list[index].description,
-                      style: TextStyle(
-                          fontFamily: 'GentiumBookBasic',
-                          fontStyle: FontStyle.italic,
-                          fontSize: 20.0
+            return Container(
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                      blurRadius: 8,
+                      offset: Offset(0, 0),
+                      color: Color.fromRGBO(127, 140, 141, 0.5),
+                      spreadRadius: 2)
+                ],
+                borderRadius: BorderRadius.circular(10.0),
+                color: Colors.white,
+              ),
+              margin: EdgeInsets.only(
+                  top: 20.0, left: 10.0, right: 10.0, bottom: 12.0),
+              child: Column(
+                children: <Widget>[
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(
+                        height: 15.0,
                       ),
-                      textAlign: TextAlign.start,
+                      Text(
+                        'Card Name: ' + list[index].cardname,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20.0
+                        ),
+                      ),
+                      SizedBox(
+                        height: 15.0,
+                      ),
+                      Text(
+                        'list name: ' + list[index].listname,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20.0
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.only(left: 10.0),
+                        child: Image.network(list[index].photo_url,
+                          width: 200.0,
+                          height: 200.0,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 40.0,
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(right: 20.0),
+                        child: IconButton(
+                          icon: Icon(Icons.open_in_browser
+                            , color: Colors.lightBlue,
+                            size: 75.0,),
+                          onPressed: () {
+                            if (list[index].web_url == "abc") {
+                              Fluttertoast.showToast(
+                                  msg: "No link attachment provided",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.CENTER,
+                                  timeInSecForIos: 1,
+                                  backgroundColor: Colors.red,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0
+                              );
+                            } else {
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) => webview(),
+                                settings: RouteSettings(
+                                  arguments: list[index].web_url,
+                                ),));
+                            }
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                  Text(
+                    list[index].description,
+                    style: TextStyle(
+                        fontFamily: 'GentiumBookBasic',
+                        fontStyle: FontStyle.italic,
+                        fontSize: 20.0
                     ),
-                    SizedBox(
-                      height: 12.0,
+                    textAlign: TextAlign.start,
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.delete,
+                      color: Colors.red,
                     ),
-                  ],
-                ),
+                    onPressed: (){
+                      mMessagesDatabaseReference = mFirebaseDatabase
+                          .reference()
+                          .child("archived_cards/"+list[index].listname + "key"+list[index].cardname);
+                      mMessagesDatabaseReference
+                          .remove()
+                          .then((_) {
+                        print("Delete successful");
+                        setState(() {
+                          list.removeAt(index);
+                        });
+                      });
+                      Navigator.pop(context);
+                    },
+                    tooltip: 'Delete the card',
+                  ),
+                  SizedBox(
+                    height: 12.0,
+                  ),
+                ],
               ),
             );
           },
