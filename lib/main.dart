@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:testapp/experiment.dart';
-import 'package:testapp/instructions.dart';
-import 'package:testapp/practises.dart';
 
 import 'login_page.dart';
 import 'notes.dart';

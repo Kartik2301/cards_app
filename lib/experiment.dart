@@ -8,7 +8,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:testapp/archives.dart';
 import 'package:testapp/details.dart';
-import 'package:testapp/instructions.dart';
 import 'package:testapp/objects.dart';
 import 'package:testapp/sign_in.dart';
 
